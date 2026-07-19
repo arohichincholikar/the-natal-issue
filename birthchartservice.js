@@ -1,17 +1,29 @@
-const SIGN_NAMES = [
-  'aries',
-  'taurus',
-  'gemini',
-  'cancer',
-  'leo',
-  'virgo',
-  'libra',
-  'scorpio',
-  'sagittarius',
-  'capricorn',
-  'aquarius',
-  'pisces'
-];
+const SIGN_MAP = {
+  ari: 'aries',
+  tau: 'taurus',
+  gem: 'gemini',
+  can: 'cancer',
+  leo: 'leo',
+  vir: 'virgo',
+  lib: 'libra',
+  sco: 'scorpio',
+  sag: 'sagittarius',
+  cap: 'capricorn',
+  aqu: 'aquarius',
+  pis: 'pisces',
+
+  aries: 'aries',
+  taurus: 'taurus',
+  gemini: 'gemini',
+  cancer: 'cancer',
+  virgo: 'virgo',
+  libra: 'libra',
+  scorpio: 'scorpio',
+  sagittarius: 'sagittarius',
+  capricorn: 'capricorn',
+  aquarius: 'aquarius',
+  pisces: 'pisces'
+};
 
 function normaliseSign(value) {
   if (!value) return null;
@@ -20,28 +32,24 @@ function normaliseSign(value) {
     .trim()
     .toLowerCase();
 
-  return SIGN_NAMES.includes(sign)
-    ? sign
-    : null;
+  return SIGN_MAP[sign] || null;
 }
 
-function findByName(items, names) {
-  if (!Array.isArray(items)) return null;
+function findPlanet(planets, name) {
+  if (!Array.isArray(planets)) return null;
 
-  const acceptedNames = names.map(
-    (name) => name.toLowerCase()
-  );
+  const target = name.toLowerCase();
 
-  return items.find((item) => {
-    const itemName = String(
-      item.name ||
-      item.planet ||
-      item.body ||
-      item.point ||
+  return planets.find((planet) => {
+    const planetName = String(
+      planet.id ||
+      planet.name ||
+      planet.planet ||
+      planet.body ||
       ''
     ).toLowerCase();
 
-    return acceptedNames.includes(itemName);
+    return planetName === target;
   });
 }
 
@@ -49,6 +57,7 @@ function extractSign(item) {
   if (!item) return null;
 
   return normaliseSign(
+    item.sign_id ||
     item.sign ||
     item.zodiac_sign ||
     item.zodiacSign ||
@@ -59,75 +68,31 @@ function extractSign(item) {
 
 function extractChart(apiData) {
   const data =
-    apiData.data ||
-    apiData.result ||
+    apiData?.data ||
+    apiData?.result ||
     apiData;
 
-  const planets =
-    data.planets ||
-    data.planetary_positions ||
-    data.planetaryPositions ||
-    data.positions ||
-    [];
+  const planets = Array.isArray(data?.planets)
+    ? data.planets
+    : [];
 
-  const angles =
-    data.angles ||
-    data.points ||
-    data.houses ||
-    [];
-
-  const sun = findByName(
-    planets,
-    ['sun']
-  );
-
-  const moon = findByName(
-    planets,
-    ['moon']
-  );
-
-  const mercury = findByName(
-    planets,
-    ['mercury']
-  );
-
-  const venus = findByName(
-    planets,
-    ['venus']
-  );
-
-  const mars = findByName(
-    planets,
-    ['mars']
-  );
-
-  const jupiter = findByName(
-    planets,
-    ['jupiter']
-  );
+  const sun = findPlanet(planets, 'sun');
+  const moon = findPlanet(planets, 'moon');
+  const mercury = findPlanet(planets, 'mercury');
+  const venus = findPlanet(planets, 'venus');
+  const mars = findPlanet(planets, 'mars');
+  const jupiter = findPlanet(planets, 'jupiter');
 
   const ascendant =
-    data.ascendant ||
-    data.rising ||
-    findByName(
-      angles,
-      [
-        'ascendant',
-        'asc',
-        'rising'
-      ]
-    );
+    data?.angles_details?.asc ||
+    data?.ascendant ||
+    data?.rising ||
+    null;
 
   const chart = {
     sun: extractSign(sun),
     moon: extractSign(moon),
-    rising:
-      normaliseSign(
-        typeof ascendant === 'string'
-          ? ascendant
-          : null
-      ) ||
-      extractSign(ascendant),
+    rising: extractSign(ascendant),
     mercury: extractSign(mercury),
     venus: extractSign(venus),
     mars: extractSign(mars),
@@ -136,12 +101,17 @@ function extractChart(apiData) {
 
   const missing = Object.entries(chart)
     .filter(([, sign]) => !sign)
-    .map(([planet]) => planet);
+    .map(([placement]) => placement);
 
   if (missing.length) {
+    console.error(
+      'Could not extract placements:',
+      missing
+    );
+
     console.log(
       'Raw FreeAstroAPI response:',
-      apiData
+      JSON.stringify(apiData, null, 2)
     );
 
     throw new Error(
@@ -189,11 +159,20 @@ export async function calculateBirthChart({
     }
   );
 
-  const data = await response.json();
+  let data;
+
+  try {
+    data = await response.json();
+  } catch {
+    throw new Error(
+      'The astrology service returned an invalid response.'
+    );
+  }
 
   if (!response.ok) {
     throw new Error(
-      data.error ||
+      data?.error ||
+      data?.message ||
       'Could not calculate your chart.'
     );
   }
