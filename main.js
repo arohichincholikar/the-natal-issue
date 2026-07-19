@@ -22,7 +22,14 @@ const restartButton = document.getElementById('restart-button');
 function setLoading(isLoading) {
   submitButton.classList.toggle('is-loading', isLoading);
   submitButton.disabled = isLoading;
-  submitButton.textContent = isLoading ? 'Typesetting your issue…' : 'Reveal My Issue';
+
+  if (isLoading) {
+    submitButton.textContent = 'Typesetting your issue…';
+  }
+}
+
+function resetSubmitButton() {
+  submitButton.textContent = 'Make My Issue';
 }
 
 async function handleSubmit(event) {
@@ -32,7 +39,10 @@ async function handleSubmit(event) {
   const time = document.getElementById('birth-time').value;
   const locationText = document.getElementById('birth-location').value;
 
-  if (!date || !locationText) return;
+  if (!date || !time || !locationText) {
+    form.reportValidity();
+    return;
+  }
 
   setLoading(true);
 
@@ -57,7 +67,7 @@ async function handleSubmit(event) {
     });
   } catch (err) {
     console.error('Could not generate birth chart:', err);
-    submitButton.textContent = 'Something went wrong — try again';
+    submitButton.textContent = err.message || 'Something went wrong — try again';
   } finally {
     setLoading(false);
   }
@@ -71,6 +81,7 @@ function handleNavClick(event) {
 }
 
 function handleRestart() {
+  resetSubmitButton();
   issueSection.classList.remove('is-visible');
   issueSection.hidden = true;
   nav.hidden = true;
@@ -78,6 +89,7 @@ function handleRestart() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+form.addEventListener('input', resetSubmitButton);
 form.addEventListener('submit', handleSubmit);
 nav.addEventListener('click', handleNavClick);
 restartButton.addEventListener('click', handleRestart);

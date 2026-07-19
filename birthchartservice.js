@@ -177,5 +177,12 @@ export async function calculateBirthChart({
     );
   }
 
-  return extractChart(data);
+  return {
+    ...extractChart(data),
+    meta: {
+      date,
+      time,
+      locationLabel: city.trim()
+    }
+  };
 }
