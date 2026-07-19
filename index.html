@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Natal Issue — A Magazine of One</title>
+<meta name="description" content="Enter your birth date, time, and place to receive a personalized editorial birth chart — your Meet Your Chart, style, comfort, playlist, home, and ideal weekend.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="masthead-bar">
+    <span class="masthead-bar__mark">The Natal Issue</span>
+    <span class="masthead-bar__meta">Your chart, minus the homework</span>
+  </header>
+
+  <nav class="running-nav" id="running-nav" hidden>
+    <a class="running-nav__link" href="#cover" data-scroll-target="cover">Cover</a>
+    <a class="running-nav__link" href="#big-three" data-scroll-target="big-three">Meet Your Chart</a>
+    <a class="running-nav__link" href="#alignments" data-scroll-target="alignments">How You Move</a>
+    <a class="running-nav__link" href="#style" data-scroll-target="style">Style</a>
+    <a class="running-nav__link" href="#comfort" data-scroll-target="comfort">Comfort</a>
+    <a class="running-nav__link" href="#playlist" data-scroll-target="playlist">Playlist</a>
+    <a class="running-nav__link" href="#home" data-scroll-target="home">Home</a>
+    <a class="running-nav__link" href="#weekend" data-scroll-target="weekend">Weekend</a>
+    <button class="running-nav__restart" id="restart-button" type="button">Start Over</button>
+  </nav>
+
+  <main>
+
+    <!-- ============================= INTAKE ============================= -->
+    <section class="intake" id="intake">
+      <p class="intake-eyebrow">Your personal issue begins here</p>
+      <h1 class="intake-title">Your chart, <em>without</em> the astrology homework.</h1>
+      <p class="intake-dek">
+        A playful, beginner-friendly reading of your chart — translated into fashion,
+        comfort food, music, interiors and the tiny things that feel most like you.
+      </p>
+
+      <div class="intake-layout">
+        <form class="intake-form" id="intake-form" novalidate>
+          <div class="field">
+            <label for="birth-date">Date of birth</label>
+            <input type="date" id="birth-date" name="birth-date" required>
+          </div>
+          <div class="field">
+            <label for="birth-time">Time of birth</label>
+            <input type="time" id="birth-time" name="birth-time">
+            <p class="field-hint">Prototype note: exact birth time gives the most meaningful rising sign.</p>
+          </div>
+          <div class="field">
+            <label for="birth-location">Place of birth</label>
+            <input type="text" id="birth-location" name="birth-location" placeholder="City, Country" required>
+          </div>
+          <button class="intake-submit" type="submit">Make My Issue</button>
+        </form>
+
+        <aside class="intake-note">
+          <strong>What you're getting</strong>
+          <p>A personal digital issue built from your birth details. No prior astrology knowledge required.</p>
+          <ol>
+            <li>Your Meet Your Chart, explained simply</li>
+            <li>How you communicate, love, act & grow</li>
+            <li>Style, comfort, playlist, home &amp; an ideal weekend</li>
+          </ol>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================== ISSUE ============================== -->
+    <div class="issue" id="issue" hidden>
+
+      <section class="spread" id="cover"></section>
+
+      <section class="spread" id="big-three">
+        <div class="spread-header">
+          <div>
+            <p class="spread-eyebrow">Section One</p>
+            <h2 class="spread-title">Your <em>Meet Your Chart</em></h2>
+          </div>
+          <span class="spread-index">01 / 07</span>
+        </div>
+        <p class="section-lead reveal">
+          Three placements, in plain English: the self that takes the lead, the softer self close people know, and the energy strangers meet first.
+        </p>
+        <div id="big-three-content"></div>
+      </section>
+
+      <section class="spread" id="alignments">
+        <div class="spread-header">
+          <div>
+            <p class="spread-eyebrow">Section Two</p>
+            <h2 class="spread-title">Your Planetary <em>How You Move</em></h2>
+          </div>
+          <span class="spread-index">02 / 07</span>
+        </div>
+        <p class="section-lead reveal">
+          Beyond the Meet Your Chart, four more placements round out the picture —
+          how you think, love, act, and grow.
+        </p>
+        <div id="alignments-content"></div>
+      </section>
+
+      <section class="spread" id="style">
+        <div class="spread-header">
+          <div>
+            <p class="spread-eyebrow">Section Three</p>
+            <h2 class="spread-title">The <em>Wardrobe Edit</em></h2>
+          </div>
+          <span class="spread-index">03 / 07</span>
+        </div>
+        <div id="style-content"></div>
+      </section>
+
+      <section class="spread" id="comfort">
+        <div class="spread-header">
+          <div>
+            <p class="spread-eyebrow">Section Four</p>
+            <h2 class="spread-title">Your <em>Soft Place</em></h2>
+          </div>
+          <span class="spread-index">04 / 07</span>
+        </div>
+        <div id="comfort-content"></div>
+      </section>
+
+      <section class="spread" id="playlist">
+        <div class="spread-header">
+          <div>
+            <p class="spread-eyebrow">Section Five</p>
+            <h2 class="spread-title">Currently <em>On Repeat</em></h2>
+          </div>
+          <span class="spread-index">05 / 07</span>
+        </div>
+        <div id="playlist-content"></div>
+      </section>
+
+      <section class="spread" id="home">
+        <div class="spread-header">
+          <div>
+            <p class="spread-eyebrow">Section Six</p>
+            <h2 class="spread-title">The Room <em>You’d Build</em></h2>
+          </div>
+          <span class="spread-index">06 / 07</span>
+        </div>
+        <div id="home-content"></div>
+      </section>
+
+      <section class="spread" id="weekend">
+        <div class="spread-header">
+          <div>
+            <p class="spread-eyebrow">Section Seven</p>
+            <h2 class="spread-title">Your Ideal <em>Saturday</em></h2>
+          </div>
+          <span class="spread-index">07 / 07</span>
+        </div>
+        <p class="section-lead reveal">A fictional little day inspired by your chart — keep what feels right, ignore what does not.</p>
+        <div id="weekend-content"></div>
+      </section>
+
+      <footer class="colophon">
+        <span>The Natal Issue — made for curiosity, not certainty</span>
+        <span>Concept edition — placements are simulated locally</span>
+      </footer>
+
+    </div>
+
+  </main>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
