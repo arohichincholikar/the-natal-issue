@@ -1200,5 +1200,37 @@ export const PLANET_MEANINGS = {
       'Where life tends to get bigger',
     explain:
       'Jupiter points to where life tends to open up for you — your natural sense of luck, growth, and excess.'
+  },
+
+  saturn: {
+    label: "Saturn",
+    symbol: "♄",
+    tagline: "Your long-term teacher",
+    explain:
+      "Saturn represents discipline, responsibility, boundaries and the lessons life keeps returning to until they're learned."
+  },
+
+  uranus: {
+    label: "Uranus",
+    symbol: "♅",
+    tagline: "Your inner rebel",
+    explain:
+      "Uranus represents originality, change, independence and the parts of you that refuse to fit neatly into expectations."
+  },
+
+  neptune: {
+    label: "Neptune",
+    symbol: "♆",
+    tagline: "Your imagination",
+    explain:
+      "Neptune represents dreams, creativity, intuition and the places where reality and fantasy blur together."
+  },
+
+  pluto: {
+    label: "Pluto",
+    symbol: "♇",
+    tagline: "Your transformation",
+    explain:
+      "Pluto represents growth through change, personal power, intensity and the parts of life that permanently reshape you."
   }
 };

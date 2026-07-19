@@ -42,7 +42,7 @@ function buildBigThree(chart) {
 
 /** Section 2: Planetary Alignments (the "inner planets") */
 function buildAlignments(chart) {
-  return ['mercury', 'venus', 'mars', 'jupiter'].map((planetKey) => {
+  return ['mercury', 'venus', 'mars', 'jupiter','saturn','urnaus','neptune','pluto'].map((planetKey) => {
     const s = sign(chart[planetKey]);
     const meaning = PLANET_MEANINGS[planetKey];
     return {

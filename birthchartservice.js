@@ -82,6 +82,10 @@ function extractChart(apiData) {
   const venus = findPlanet(planets, 'venus');
   const mars = findPlanet(planets, 'mars');
   const jupiter = findPlanet(planets, 'jupiter');
+  const saturn = findPlanet(planets, 'saturn');
+  const uranus = findPlanet(planets, 'uranus');
+  const neptune = findPlanet(planets, 'neptune');
+  const pluto = findPlanet(planets, 'pluto');
 
   const ascendant =
     data?.angles_details?.asc ||
@@ -96,7 +100,11 @@ function extractChart(apiData) {
     mercury: extractSign(mercury),
     venus: extractSign(venus),
     mars: extractSign(mars),
-    jupiter: extractSign(jupiter)
+    jupiter: extractSign(jupiter),
+    saturn: extractSign(saturn),
+    uranus: extractSign(uranus),
+    neptune: extractSign(neptune),
+    pluto: extractSign(pluto)
   };
 
   const missing = Object.entries(chart)
