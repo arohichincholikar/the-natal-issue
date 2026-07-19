@@ -8,7 +8,7 @@
  * -----------------------------------------------------------------------
  */
 
-import { calculateBirthChart, resolveLocation } from './birthchartservice.js';
+import { calculateBirthChart } from './birthchartservice.js';
 import { generateIssue } from './contentgen.js';
 import { renderIssue, initScrollReveal, scrollToSection } from './ui.js';
 
@@ -37,8 +37,11 @@ async function handleSubmit(event) {
   setLoading(true);
 
   try {
-    const { lat, lon, locationLabel } = resolveLocation(locationText);
-    const chart = await calculateBirthChart({ date, time, lat, lon, locationLabel });
+    const chart = await calculateBirthChart({
+      date,
+      time,
+      city: locationText
+    });
     const issue = generateIssue(chart);
 
     renderIssue(issue);
