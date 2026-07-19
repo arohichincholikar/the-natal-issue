@@ -121,11 +121,6 @@ function buildWeekend(chart) {
   };
 }
 
-/**
- * Assembles the complete editorial issue from a raw BirthChart.
- * @param {Object} chart - output of birthChartService.getBirthChart()
- * @returns {Object} full content model for ui.js
- */
 export function generateIssue(chart) {
   return {
     chart,
